@@ -82,6 +82,7 @@ type EnclosureList struct {
 	Total       int           `json:"total,omitempty"`       // "total": 1,
 	Count       int           `json:"count,omitempty"`       // "count": 1,
 	Start       int           `json:"start,omitempty"`       // "start": 0,
+	Category	utils.Nstring `json:"category,omitempty"`	//"category": enclosures,
 	PrevPageURI utils.Nstring `json:"prevPageUri,omitempty"` // "prevPageUri": null,
 	NextPageURI utils.Nstring `json:"nextPageUri,omitempty"` // "nextPageUri": null,
 	URI         utils.Nstring `json:"uri,omitempty"`         // "uri": "/rest/enclosures?sort=name:asc"
