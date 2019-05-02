@@ -560,4 +560,5 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 			return utilization, nil
 		}
 	}
+	return utilization, err
 }
