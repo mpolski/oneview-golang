@@ -516,7 +516,7 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 	//log.Debugf("Collecting utilization data for %s.", enclosure.Name)
 	var (
-		uri         = "/rest/enclosures/" + c.GetEnclosurebyUri
+		uri         = "/rest/enclosures/" + c.GetEnclosurebyUri()
 		q           map[string]interface{}
 		utilization EnclosureUtilization
 	)
