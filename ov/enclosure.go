@@ -515,7 +515,8 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 
 func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 	var (
-		uri         utils.Nstring
+		URI         string
+		UUID        string
 		q           map[string]interface{}
 		utilization EnclosureUtilization
 	)
@@ -546,11 +547,11 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		fmt.Println("Enclosure URI Retrieval Failed: ", err)
 	} else {
 		for i := 0; i < len(encList.Members); i++ {
-			uri = encList.Members[i].URI //here comes util.Nstring
-			fmt.Println("-----------Getting Utilization Data for: %s", uri)
+			UUID = encList.Members[i].UUID //here comes string 09USE62519EE
+			fmt.Println("-----------Getting Utilization Data for: %s", UUID)
 
-			uriString := uri.(string)
-			data, err := c.RestAPICall(rest.GET, uriString, nil) //here uri must be string
+			URI = "rest/enclosures/" + UUID
+			data, err := c.RestAPICall(rest.GET, URI, nil) //here uri must be string
 			if err != nil {
 				return utilization, err
 			}
