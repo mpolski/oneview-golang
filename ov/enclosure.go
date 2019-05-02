@@ -513,11 +513,11 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 	return nil
 }
 
-func (c *OVClinet) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
-	log.Debugf("Collecting utilization data for %s.", enclosure.Name)
+func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
+	//log.Debugf("Collecting utilization data for %s.", enclosure.Name)
 	var (
-		uri = enclosure.URI.String()
-		q	map[string]interface{}
+		uri         = "/rest/enclosures/" + c.GetEnclosurebyUri
+		q           map[string]interface{}
 		utilization EnclosureUtilization
 	)
 
@@ -525,21 +525,18 @@ func (c *OVClinet) GetEnclosuresUtilization(fields string, filter string, refres
 	if len(filter) > 0 {
 		q["filter"] = filter
 	}
-	if sort != "" {
-		q["sort"] = sort
+	if fields != "" {
+		q["sort"] = fields
 	}
 
-	if start != "" {
-		q["start"] = start
+	if refresh != "" {
+		q["start"] = refresh
 	}
 
-	if count != "" {
-		q["count"] = count
+	if view != "" {
+		q["count"] = view
 	}
 
-	if scopeUris != "" {
-		q["scopeUris"] = scopeUris
-	}
 	// refresh login
 	c.RefreshLogin()
 	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
@@ -547,7 +544,7 @@ func (c *OVClinet) GetEnclosuresUtilization(fields string, filter string, refres
 	if len(q) > 0 {
 		c.SetQueryString(q)
 	}
-	
+
 	data, err := c.RestAPICall(rest.GET, uri, nil)
 	if err != nil {
 		return utilization, err
