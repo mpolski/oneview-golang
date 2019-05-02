@@ -525,16 +525,13 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	if len(filter) > 0 {
 		q["filter"] = filter
 	}
-	if fields != "" {
-		q["sort"] = fields
-	}
 
-	if refresh != "" {
-		q["start"] = refresh
+	if fields != "" {
+		q["fields"] = fields
 	}
 
 	if view != "" {
-		q["count"] = view
+		q["view"] = view
 	}
 
 	// refresh login
