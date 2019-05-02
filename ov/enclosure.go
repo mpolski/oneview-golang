@@ -515,9 +515,10 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 
 func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 	var (
+		q           map[string]interface{}
+		refresh     bool
 		URI         string
 		UUID        string
-		q           map[string]interface{}
 		utilization EnclosureUtilization
 	)
 
@@ -534,6 +535,8 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		q["view"] = view
 	}
 
+	refresh = true
+
 	// refresh login
 	c.RefreshLogin()
 	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
@@ -547,19 +550,18 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		fmt.Println("Enclosure URI Retrieval Failed: ", err)
 	} else {
 		for i := 0; i < len(encList.Members); i++ {
-			UUID = encList.Members[i].UUID //here comes string 09USE62519EE
-			fmt.Println("-----------Getting Utilization Data for: %s", UUID)
-
+			UUID = encList.Members[i].UUID
+			//fmt.Println("-----------Getting Utilization Data for: ", UUID)
 			URI = "rest/enclosures/" + UUID
-			data, err := c.RestAPICall(rest.GET, URI, nil) //here uri must be string
+			data, err := c.RestAPICall(rest.GET, URI, "", "", true, "")
 			if err != nil {
 				return utilization, err
 			}
-			log.Debugf("GetEnclosuresUtilization %s", data)
+			log.Debugf("GetEnclosuresUtilization ", data)
 			if err := json.Unmarshal([]byte(data), &utilization); err != nil {
 				return utilization, err
 			}
-			return utilization, nil
+			return utilization, err
 		}
 	}
 	return utilization, err
