@@ -295,6 +295,32 @@ type EnclosureCreateMap struct {
 	UpdateFirmwareOn     string        `json:"updateFirmwareOn,omitempty"`
 }
 
+//EnclosureUtilization - change URI string to utils.Nstring to follow original
+type EnclosureUtilization struct {
+	RefreshTaskURI   string       `json:"refreshTaskUri,omitempty"`   //"refreshTaskUri": null,
+	URI              string       `json:"uri,omitempty"`              //"uri": "/rest/enclosures/797740CZJ809076M"
+	Resolution       int          `json:"resolution,omitempty"`       //"resolution": 3000000,
+	SliceEndTime     string       `json:"sliceEndTime,omitempty"`     //"sliceEndTime": "2019-05-01T11:10:00.000Z",
+	SliceStartTime   string       `json:"sliceStartTime,omitempty"`   //"sliceStartTime": "2019-05-01T11:10:00.000Z",
+	NewestSampleTime string       `json:"newestSampleTime,omitempty"` //"newestSampleTime": "2019-05-01T11:10:00.000Z",
+	OldestSampleTime string       `json:"oldestSampleTime,omitempty"` //"oldestSampleTime": "2019-05-01T11:10:00.000Z",
+	IsFresh          bool         `json:"isFresh,omitempty"`          // "total": false,
+	MetricList       []MetricList `json:"metricList,omitempty"`       // "metricList":[]
+}
+
+//MetricList - EnclosureUtilization
+type MetricList struct {
+	MetricName     string          `json:"metricName,omitempty"`     //"metricName": "PeakPower",
+	MetricSamples  []MetricSamples `json:"metricSamples,omitempty"`  //"metricSamples":[],
+	MetricCapacity int             `json:"metricCapacity,omitempty"` // "metricCapacity": 35
+}
+
+//MetricSamples - EnclosureUtilization
+type MetricSamples struct {
+	t string
+	v int
+}
+
 func (c *OVClient) GetEnclosureByName(name string) (Enclosure, error) {
 	var (
 		enclosure Enclosure
@@ -485,4 +511,51 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 	}
 
 	return nil
+}
+
+func (c *OVClinet) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
+	log.Debugf("Collecting utilization data for %s.", enclosure.Name)
+	var (
+		uri = enclosure.URI.String()
+		q	map[string]interface{}
+		utilization EnclosureUtilization
+	)
+
+	q = make(map[string]interface{})
+	if len(filter) > 0 {
+		q["filter"] = filter
+	}
+	if sort != "" {
+		q["sort"] = sort
+	}
+
+	if start != "" {
+		q["start"] = start
+	}
+
+	if count != "" {
+		q["count"] = count
+	}
+
+	if scopeUris != "" {
+		q["scopeUris"] = scopeUris
+	}
+	// refresh login
+	c.RefreshLogin()
+	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
+	// Setup query
+	if len(q) > 0 {
+		c.SetQueryString(q)
+	}
+	
+	data, err := c.RestAPICall(rest.GET, uri, nil)
+	if err != nil {
+		return utilization, err
+	}
+	log.Debugf("GetEnclosuresUtilization %s", data)
+	if err := json.Unmarshal([]byte(data), &utilization); err != nil {
+		return utilization, err
+	}
+	return utilization, nil
+
 }
