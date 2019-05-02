@@ -546,10 +546,11 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		fmt.Println("Enclosure URI Retrieval Failed: ", err)
 	} else {
 		for i := 0; i < len(encList.Members); i++ {
-			uri = encList.Members[i].URI
+			uri = encList.Members[i].URI //here comes util.Nstring
 			fmt.Println("-----------Getting Utilization Data for: %s", uri)
 
-			data, err := c.RestAPICall(rest.GET, uri, nil)
+			uriString := uri.(string)
+			data, err := c.RestAPICall(rest.GET, uriString, nil) //here uri must be string
 			if err != nil {
 				return utilization, err
 			}
