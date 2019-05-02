@@ -295,17 +295,17 @@ type EnclosureCreateMap struct {
 	UpdateFirmwareOn     string        `json:"updateFirmwareOn,omitempty"`
 }
 
-//EnclosureUtilization - change URI string to utils.Nstring to follow original
+//EnclosureUtilization
 type EnclosureUtilization struct {
-	RefreshTaskURI   string       `json:"refreshTaskUri,omitempty"`   //"refreshTaskUri": null,
-	URI              string       `json:"uri,omitempty"`              //"uri": "/rest/enclosures/797740CZJ809076M"
-	Resolution       int          `json:"resolution,omitempty"`       //"resolution": 3000000,
-	SliceEndTime     string       `json:"sliceEndTime,omitempty"`     //"sliceEndTime": "2019-05-01T11:10:00.000Z",
-	SliceStartTime   string       `json:"sliceStartTime,omitempty"`   //"sliceStartTime": "2019-05-01T11:10:00.000Z",
-	NewestSampleTime string       `json:"newestSampleTime,omitempty"` //"newestSampleTime": "2019-05-01T11:10:00.000Z",
-	OldestSampleTime string       `json:"oldestSampleTime,omitempty"` //"oldestSampleTime": "2019-05-01T11:10:00.000Z",
-	IsFresh          bool         `json:"isFresh,omitempty"`          // "total": false,
-	MetricList       []MetricList `json:"metricList,omitempty"`       // "metricList":[]
+	RefreshTaskURI   string        `json:"refreshTaskUri,omitempty"`   //"refreshTaskUri": null,
+	URI              utils.Nstring `json:"uri,omitempty"`              //"uri": "/rest/enclosures/797740CZJ809076M"
+	Resolution       int           `json:"resolution,omitempty"`       //"resolution": 3000000,
+	SliceEndTime     string        `json:"sliceEndTime,omitempty"`     //"sliceEndTime": "2019-05-01T11:10:00.000Z",
+	SliceStartTime   string        `json:"sliceStartTime,omitempty"`   //"sliceStartTime": "2019-05-01T11:10:00.000Z",
+	NewestSampleTime string        `json:"newestSampleTime,omitempty"` //"newestSampleTime": "2019-05-01T11:10:00.000Z",
+	OldestSampleTime string        `json:"oldestSampleTime,omitempty"` //"oldestSampleTime": "2019-05-01T11:10:00.000Z",
+	IsFresh          bool          `json:"isFresh,omitempty"`          // "total": false,
+	MetricList       []MetricList  `json:"metricList,omitempty"`       // "metricList":[]
 }
 
 //MetricList - EnclosureUtilization
