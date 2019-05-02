@@ -533,7 +533,6 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		q["view"] = view
 	}
 
-	
 	// refresh login
 	c.RefreshLogin()
 	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
@@ -546,7 +545,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	if err != nil {
 		fmt.Println("Enclosure URI Retrieval Failed: ", err)
 	} else {
-		for i :=0; i < len(encList.Members); i++ {
+		for i := 0; i < len(encList.Members); i++ {
 			uri = encList.Members[i].URI
 			fmt.Println("-----------Getting Utilization Data for: %s", uri)
 
@@ -555,7 +554,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 				return utilization, err
 			}
 			log.Debugf("GetEnclosuresUtilization %s", data)
-			if err := json.Unmarshal([]byte(data), %utilization); err != nil {
+			if err := json.Unmarshal([]byte(data), &utilization); err != nil {
 				return utilization, err
 			}
 			return utilization, nil
