@@ -519,6 +519,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	var (
 		q           map[string]interface{}
 		URI         string
+		refreshURI  string
 		UUID        string
 		utilization EnclosureUtilization
 	)
@@ -550,11 +551,12 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	} else {
 		for i := 0; i < len(encList.Members); i++ {
 			UUID = encList.Members[i].UUID
-			//fmt.Println("-----------Getting Utilization Data for: ", UUID)
-			URI = "rest/enclosures/" + UUID + "/utilization?refresh=true" //URI musi powstac jako string, patrz GetEnclosurebyUri w enclosure.go
-
-			data, err := c.RestAPICall(rest.GET, URI, nil)
-			time.Sleep(3 * time.Second)
+			fmt.Println("-----------Getting Utilization Data for UUID: ", UUID)
+			URI = "rest/enclosures/" + UUID + "/utilization"
+			refreshURI = "rest/enclosures/" + UUID + "/utilization?refresh=true" //URI musi powstac jako string, patrz GetEnclosurebyUri w enclosure.go
+			fmt.Println("-----------Refresh URI: ", refreshURI)
+			fmt.Println("-----------Get data URI: ", URI)
+			data, err := c.RestAPICall(rest.GET, refreshURI, nil)
 			if err != nil {
 				return utilization, err
 			}
@@ -562,6 +564,17 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 			if err := json.Unmarshal([]byte(data), &utilization); err != nil {
 				return utilization, err
 			}
+			time.Sleep(3 * time.Second)
+
+			data, err := c.RestAPICall(rest.GET, URI, nil)
+			if err != nil {
+				return utilization, err
+			}
+			log.Debugf("GetEnclosuresUtilization ", data)
+			if err := json.Unmarshal([]byte(data), &utilization); err != nil {
+				return utilization, err
+			}
+
 			return utilization, err
 		}
 	}
