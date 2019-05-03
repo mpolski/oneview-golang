@@ -550,7 +550,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	} else {
 		for i := 0; i < len(encList.Members); i++ {
 			UUID = encList.Members[i].UUID
-			fmt.println(UUID)
+			fmt.Println(UUID)
 
 			fmt.Println("-----------Getting Utilization Data for UUID: ", UUID)
 			URI = "/rest/enclosures/" + UUID + "/utilization"
