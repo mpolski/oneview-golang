@@ -553,7 +553,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 			fmt.println(UUID)
 
 			fmt.Println("-----------Getting Utilization Data for UUID: ", UUID)
-			URI = "rest/enclosures/" + UUID + "/utilization"
+			URI = "/rest/enclosures/" + UUID + "/utilization"
 			//refreshURI = "rest/enclosures/" + UUID + "/utilization?refresh=true" //URI musi powstac jako string, patrz GetEnclosurebyUri w enclosure.go
 			// fmt.Println("-----------Refresh URI: ", refreshURI)
 			// fmt.Println("-----------Get data URI: ", URI)
