@@ -556,12 +556,12 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 			refreshURI = "rest/enclosures/" + UUID + "/utilization?refresh=true" //URI musi powstac jako string, patrz GetEnclosurebyUri w enclosure.go
 			fmt.Println("-----------Refresh URI: ", refreshURI)
 			fmt.Println("-----------Get data URI: ", URI)
-			data, err := c.RestAPICall(rest.GET, refreshURI, nil)
+			dataRefresh, err := c.RestAPICall(rest.GET, refreshURI, nil)
 			if err != nil {
 				return utilization, err
 			}
-			log.Debugf("GetEnclosuresUtilization ", data)
-			if err := json.Unmarshal([]byte(data), &utilization); err != nil {
+			log.Debugf("GetEnclosuresUtilization ", dataRefresh)
+			if err := json.Unmarshal([]byte(dataRefresh), &utilization); err != nil {
 				return utilization, err
 			}
 			time.Sleep(3 * time.Second)
