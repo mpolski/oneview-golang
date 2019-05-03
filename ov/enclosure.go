@@ -518,7 +518,6 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	var (
 		q           map[string]interface{}
 		URI         string
-		refreshURI  string
 		UUID        string
 		utilization EnclosureUtilization
 	)
