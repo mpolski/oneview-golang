@@ -513,6 +513,7 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 	return nil
 }
 
+// tu zamiast fileds, filter...blah blah... powinno byc URI czyli /rest/enclosures/<id>?refresh=true	- czyli chyba musze podac mape 3x string, bool)
 func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 	var (
 		q           map[string]interface{}
@@ -549,8 +550,8 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		for i := 0; i < len(encList.Members); i++ {
 			UUID = encList.Members[i].UUID
 			//fmt.Println("-----------Getting Utilization Data for: ", UUID)
-			URI = "rest/enclosures/" + UUID
-			data, err := c.RestAPICall(rest.GET, URI, "", "", true, "")
+			URI = "rest/enclosures/" + UUID + "/utilization?refresh=true" //URI musi powstac jako string, patrz GetEnclosurebyUri w enclosure.go
+			data, err := c.RestAPICall(rest.GET, URI, nil)
 			if err != nil {
 				return utilization, err
 			}
