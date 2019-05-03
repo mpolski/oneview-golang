@@ -516,7 +516,6 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 	var (
 		q           map[string]interface{}
-		refresh     bool
 		URI         string
 		UUID        string
 		utilization EnclosureUtilization
@@ -534,8 +533,6 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	if view != "" {
 		q["view"] = view
 	}
-
-	refresh = true
 
 	// refresh login
 	c.RefreshLogin()
