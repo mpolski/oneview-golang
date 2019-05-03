@@ -3,6 +3,7 @@ package ov
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/HewlettPackard/oneview-golang/rest"
 	"github.com/HewlettPackard/oneview-golang/utils"
@@ -551,7 +552,9 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 			UUID = encList.Members[i].UUID
 			//fmt.Println("-----------Getting Utilization Data for: ", UUID)
 			URI = "rest/enclosures/" + UUID + "/utilization?refresh=true" //URI musi powstac jako string, patrz GetEnclosurebyUri w enclosure.go
+
 			data, err := c.RestAPICall(rest.GET, URI, nil)
+			time.Sleep(3 * time.Second)
 			if err != nil {
 				return utilization, err
 			}
