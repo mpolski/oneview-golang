@@ -310,9 +310,9 @@ type EnclosureUtilization struct {
 
 //MetricList - EnclosureUtilization
 type MetricList struct {
-	MetricName     string        `json:"metricName,omitempty"`     //"metricName": "PeakPower",
-	MetricSamples  []interface{} `json:"metricSamples,omitempty"`  //"metricSamples":[],
-	MetricCapacity int           `json:"metricCapacity,omitempty"` // "metricCapacity": 35
+	MetricName     string   `json:"metricName,omitempty"`     //"metricName": "PeakPower",
+	MetricSamples  []string `json:"metricSamples,omitempty"`  //"metricSamples":[],
+	MetricCapacity int      `json:"metricCapacity,omitempty"` // "metricCapacity": 35
 }
 
 //MetricSamples - EnclosureUtilization	json: cannot unmarshal array into Go struct field MetricList.metricSamples of type ov.MetricSamples (this isn't a struct with named fields, it's an array)
