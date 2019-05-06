@@ -552,7 +552,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		for i := 0; i < len(l.Members); i++ {
 
 			URI := l.Members[i].URI
-			rURI := URI + "/utilization?refresh=true"
+			rURI := String(URI + "/utilization?refresh=true")
 			r, err := c.RestAPICall(rest.GET, rURI, nil)
 			if err != nil {
 				return utilization, err
