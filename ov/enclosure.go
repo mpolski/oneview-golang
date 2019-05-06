@@ -513,10 +513,10 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 	return nil
 }
 
-// tu zamiast fileds, filter...blah blah... powinno byc URI czyli /rest/enclosures/<id>?refresh=true	- czyli chyba musze podac mape 3x string, bool)
+//see rest/netutil.go line 70 - boolean is not supported, only strings here, hence below I set the refreshURI hard to ?refresh=true
 func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 	var (
-		q           map[string]interface{}
+		q map[string]interface{}
 		//t	*Task
 		utilization EnclosureUtilization
 	)
@@ -533,10 +533,8 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	if view != "" {
 		q["view"] = view
 	}
-	if refresh == true {
-		q[refresh] = true
-	}
-		// refresh login
+
+	// refresh login
 	c.RefreshLogin()
 	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
 	// Setup query
@@ -545,28 +543,28 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	}
 
 	//Getting URIs to reset utilization data against
-	l, err := ovc.GetEnclosures("", "", "", "", "")
+	l, err := c.GetEnclosures("", "", "", "", "")
 	if err != nil {
 		fmt.Println("Enclosure Retrieval Failed: ", err)
 	} else {
 		fmt.Println("#----------------Refresh metrics---------------#")
 
 		for i := 0; i < len(l.Members); i++ {
-			
+
 			URI := l.Members[i].URI
-			refreshURI := URI + "/utilization?refresh=true"
-			refresh, err := c.RestAPICall(rest.GET, refreshURI, nil)
+			rURI := URI + "/utilization?refresh=true"
+			r, err := c.RestAPICall(rest.GET, rURI, nil)
 			if err != nil {
 				return utilization, err
 			}
 
-			log.Debugf("Utilization data refreshTaskUri :", refresh)
-			if err := json.Unmarshal([]byte(dataRefresh), &utilization); err != nil {
+			log.Debugf("Utilization data refreshTaskUri :", r)
+			if err := json.Unmarshal([]byte(r), &utilization); err != nil {
 				return utilization, err
 			}
-			return utilization, nil
 		}
 	}
+	return utilization, nil
 
 	// THIS WORKED
 	// encList, err := c.GetEnclosures("", "", "", "", "")
