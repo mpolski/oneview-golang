@@ -520,7 +520,6 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		q map[string]interface{}
 		//t           *Task
 		utilization EnclosureUtilization
-		enclosures  Enclosures
 	)
 
 	q = make(map[string]interface{})
