@@ -555,7 +555,8 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 			fmt.Println(l.Members[i].UUID)
 			UUID := l.Members[i].UUID
 
-			rURI := string("/rest/enclosures/" + UUID + "/utilization") //?refresh=true")
+			//rURI := "/rest/enclosures/" + UUID + "/utilization" //?refresh=true")
+			rURI := "/rest/enclosures/797740CZJ809076M/utilization"
 			//rURI := string("/rest/enclosures/" + l.Members[i].UUID)
 
 			fmt.Println(rURI)
