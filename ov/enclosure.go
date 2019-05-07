@@ -545,8 +545,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 
 	//Getting URIs to reset utilization data against
 
-	sort := ""
-	l, err := c.GetEnclosures("", "", "", sort, "")
+	l, err := c.GetEnclosures("", "", "", "", "")
 	if err != nil {
 		fmt.Println("Enclosure Retrieval Failed: ", err)
 	} else {
@@ -554,8 +553,9 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 
 		for i := 0; i < len(l.Members); i++ {
 			fmt.Println(l.Members[i].UUID)
+			UUID := l.Members[i].UUID
 
-			rURI := string("/rest/enclosures/" + l.Members[i].UUID + "/utilization") //?refresh=true")
+			rURI := string("/rest/enclosures/" + UUID + "/utilization") //?refresh=true")
 			//rURI := string("/rest/enclosures/" + l.Members[i].UUID)
 
 			fmt.Println(rURI)
@@ -569,7 +569,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 				return utilization, err
 			}
 		}
-		//return utilization, nil
+		return utilization, nil
 	}
 	return utilization, nil
 
