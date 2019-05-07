@@ -551,7 +551,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, view s
 		fmt.Println("#----------------Refresh metrics---------------#")
 
 		for i := 0; i < len(l.Members); i++ {
-			fmt.Prinln(l.Members[i].UUID)
+			fmt.Println(l.Members[i].UUID)
 			URI := "/rest/enclosures/" + l.Members[i].UUID
 			rURI := URI + "/utilization?refresh=true"
 			r, err := c.RestAPICall(rest.GET, rURI, nil)
