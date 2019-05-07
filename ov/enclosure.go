@@ -520,7 +520,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		q map[string]interface{}
 		//t           *Task
 		utilization EnclosureUtilization
-		enclosures   Enclosures
+		enclosures  Enclosures
 	)
 
 	q = make(map[string]interface{})
@@ -556,7 +556,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		for i := 0; i < len(l.Members); i++ {
 			fmt.Println(l.Members[i].UUID)
 
-			rURI := string("/rest/enclosures/" + l.Members[i].UUID + "/utilization?refresh=true")
+			rURI := string("/rest/enclosures/" + l.Members[i].UUID + "/utilization") //?refresh=true")
 			//rURI := string("/rest/enclosures/" + l.Members[i].UUID)
 
 			fmt.Println(rURI)
