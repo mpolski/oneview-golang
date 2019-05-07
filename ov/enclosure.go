@@ -561,12 +561,12 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, view s
 			if err != nil {
 				return utilization, err
 			}
-
 			log.Debugf("Utilization data refreshTaskUri :", r)
 			if err := json.Unmarshal([]byte(r), &utilization); err != nil {
 				return utilization, err
 			}
 		}
+		return utilization, nil
 	}
 	return utilization, nil
 
