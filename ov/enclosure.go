@@ -520,6 +520,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		q map[string]interface{}
 		//t           *Task
 		utilization EnclosureUtilization
+		enclosures   Enclosures
 	)
 
 	q = make(map[string]interface{})
@@ -562,11 +563,11 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 
 			r, err := c.RestAPICall(rest.GET, rURI, nil)
 			if err != nil {
-				return err
+				return utilization, err
 			}
 			log.Debugf("Utilization data refreshTaskUri :", r)
-			if err := json.Unmarshal([]byte(r), &utilization); err != nil {
-				return err
+			if err := json.Unmarshal([]byte(r), &enclosure); err != nil {
+				return utilization, err
 			}
 		}
 		return utilization, nil
