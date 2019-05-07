@@ -515,10 +515,10 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 
 //see rest/netutil.go line 70 - boolean is not supported, only strings here, hence below I set the refreshURI hard to ?refresh=true
 //func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
-func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, view string) (EnclosureUtilization, error) {
+func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool view string) (EnclosureUtilization, error) {
 	var (
 		q map[string]interface{}
-		//t	*Task
+		t	*Task
 		utilization EnclosureUtilization
 	)
 
