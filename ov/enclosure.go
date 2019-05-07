@@ -517,8 +517,8 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 //func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 	var (
-		q           map[string]interface{}
-		t           *Task
+		q map[string]interface{}
+		//t           *Task
 		utilization EnclosureUtilization
 	)
 
