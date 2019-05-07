@@ -520,6 +520,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		q map[string]interface{}
 		//t           *Task
 		utilization EnclosureUtilization
+		refresh := true
 	)
 
 	q = make(map[string]interface{})
@@ -534,6 +535,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	if view != "" {
 		q["view"] = view
 	}
+	
 
 	// refresh login
 	c.RefreshLogin()
@@ -545,71 +547,42 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 
 	//Getting URIs to reset utilization data against
 
-	l, err := c.GetEnclosures("", "", "", "", "")
-	if err != nil {
-		fmt.Println("Enclosure Retrieval Failed: ", err)
-	} else {
-		fmt.Println("#----------------Refresh metrics---------------#")
 
-		for i := 0; i < len(l.Members); i++ {
-			fmt.Println(l.Members[i].UUID)
-			UUID := l.Members[i].UUID
+	// THIS WORKED
+	encList, err := c.GetEnclosures("", "", "", "", "")
+	if err != nil {
+		fmt.Println("Enclosure URI Retrieval Failed: ", err)
+	} else {
+		for i := 0; i < len(encList.Members); i++ {
+			UUID = encList.Members[i].UUID
 			fmt.Println(UUID)
 
-			//rURI := "/rest/enclosures/" + UUID + "/utilization" //?refresh=true")
-			rURI := "/rest/enclosures/797740CZJ809076M/utilization"
-			//rURI := string("/rest/enclosures/" + l.Members[i].UUID)
+			fmt.Println("-----------Getting Utilization Data for UUID: ", UUID)
+			URI = "/rest/enclosures/" + UUID + "/utilization"
+			//refreshURI = "rest/enclosures/" + UUID + "/utilization?refresh=true" //URI musi powstac jako string, patrz GetEnclosurebyUri w enclosure.go
+			// fmt.Println("-----------Refresh URI: ", refreshURI)
+			// fmt.Println("-----------Get data URI: ", URI)
+			// dataRefresh, err := c.RestAPICall(rest.GET, refreshURI, nil)
+			// if err != nil {
+			// 	return utilization, err
+			// }
+			// log.Debugf("GetEnclosuresUtilization ", dataRefresh)
+			// if err := json.Unmarshal([]byte(dataRefresh), &utilization); err != nil {
+			// 	return utilization, err
+			// }
+			// time.Sleep(3 * time.Second)
 
-			fmt.Println(rURI)
-
-			r, err := c.RestAPICall(rest.GET, rURI, nil)
+			data, err := c.RestAPICall(rest.GET, URI, nil)
 			if err != nil {
 				return utilization, err
 			}
-			log.Debugf("Utilization data refreshTaskUri :", r)
-			if err := json.Unmarshal([]byte(r), &utilization); err != nil {
+			log.Debugf("GetEnclosuresUtilization ", data)
+			if err := json.Unmarshal([]byte(data), &utilization); err != nil {
 				return utilization, err
 			}
+
+			return utilization, err
 		}
-		return utilization, nil
 	}
-	return utilization, nil
-
-	// THIS WORKED
-	// encList, err := c.GetEnclosures("", "", "", "", "")
-	// if err != nil {
-	// 	fmt.Println("Enclosure URI Retrieval Failed: ", err)
-	// } else {
-	// 	for i := 0; i < len(encList.Members); i++ {
-	// 		UUID = encList.Members[i].UUID
-	// 		fmt.Println(UUID)
-
-	// 		fmt.Println("-----------Getting Utilization Data for UUID: ", UUID)
-	// 		URI = "/rest/enclosures/" + UUID + "/utilization"
-	// 		//refreshURI = "rest/enclosures/" + UUID + "/utilization?refresh=true" //URI musi powstac jako string, patrz GetEnclosurebyUri w enclosure.go
-	// 		// fmt.Println("-----------Refresh URI: ", refreshURI)
-	// 		// fmt.Println("-----------Get data URI: ", URI)
-	// 		// dataRefresh, err := c.RestAPICall(rest.GET, refreshURI, nil)
-	// 		// if err != nil {
-	// 		// 	return utilization, err
-	// 		// }
-	// 		// log.Debugf("GetEnclosuresUtilization ", dataRefresh)
-	// 		// if err := json.Unmarshal([]byte(dataRefresh), &utilization); err != nil {
-	// 		// 	return utilization, err
-	// 		// }
-	// 		// time.Sleep(3 * time.Second)
-
-	// 		data, err := c.RestAPICall(rest.GET, URI, nil)
-	// 		if err != nil {
-	// 			return utilization, err
-	// 		}
-	// 		log.Debugf("GetEnclosuresUtilization ", data)
-	// 		if err := json.Unmarshal([]byte(data), &utilization); err != nil {
-	// 			return utilization, err
-	// 		}
-
-	// 		return utilization, err
-	// 	}
-	// }
-	// return utilization, err
+	return utilization, err
 }
