@@ -552,7 +552,7 @@ func (c *OVClient) RefreshUtilization(uri string) (EnclosureUtilization, error) 
 		//t	*Task
 	)
 	refreshURI = uri + "/utilization?refresh=true"
-	fmt.Println("Using refresh URI: %s", refreshURI)
+	fmt.Println("Using refresh URI: %s\n", refreshURI)
 	// refresh login
 	c.RefreshLogin()
 	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
@@ -561,7 +561,7 @@ func (c *OVClient) RefreshUtilization(uri string) (EnclosureUtilization, error) 
 	if err != nil {
 		return utilization, err
 	}
-	log.Debugf("RefreshUtilization %s", data)
+	log.Debugf("RefreshUtilization %s\n", data)
 	if err := json.Unmarshal([]byte(data), &utilization); err != nil {
 		return utilization, err
 	}
