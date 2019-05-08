@@ -517,7 +517,7 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 //func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 	var (
-		q map[string]interface{}
+		q           map[string]interface{}
 		utilization EnclosureUtilization
 		//refresh := true
 	)
@@ -535,10 +535,10 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		q["view"] = view
 	}
 
-	refresh login
+	//refresh login
 	c.RefreshLogin()
 	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
-	Setup query
+	//Setup query
 	if len(q) > 0 {
 		c.SetQueryString(q)
 	}
