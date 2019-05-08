@@ -548,9 +548,9 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		fmt.Println("Enclosure URI Retrieval Failed: ", err)
 	} else {
 		for i := 0; i < len(encList.Members); i++ {
-			UUID = encList.Members[i].UUID
+			UUID := encList.Members[i].UUID
 			//fmt.Println(UUID)
-			URI = "/rest/enclosures/" + UUID + "/utilization"
+			URI := "/rest/enclosures/" + UUID + "/utilization"
 
 			data, err := c.RestAPICall(rest.GET, URI, nil)
 			if err != nil {
@@ -563,6 +563,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 			return utilization, err
 		}
 	}
+	return utilization, err
 }
 
 // 	Getting URIs to reset utilization data against
