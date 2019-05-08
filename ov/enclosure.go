@@ -551,7 +551,7 @@ func (c *OVClient) RefreshUtilization(uri string) (EnclosureUtilization, error) 
 		refreshURI  string
 		//t	*Task
 	)
-	refreshURI = uri + "/?refresh=true"
+	refreshURI = uri + "/utilization?refresh=true"
 	fmt.Println("Using refresh URI: %s", refreshURI)
 	// refresh login
 	c.RefreshLogin()
