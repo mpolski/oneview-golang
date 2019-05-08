@@ -515,34 +515,55 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 
 //see rest/netutil.go line 70 - boolean is not supported, only strings here, hence below I set the refreshURI hard to ?refresh=true
 //func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
-// func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
-// 	var (
-// 		q map[string]interface{}
-// 		t           *Task
-// 		utilization EnclosureUtilization
-// 		refresh := true
-// 	)
+func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
+	var (
+		q map[string]interface{}
+		utilization EnclosureUtilization
+		//refresh := true
+	)
 
-// 	q = make(map[string]interface{})
-// 	if len(filter) > 0 {
-// 		q["filter"] = filter
-// 	}
+	q = make(map[string]interface{})
+	if len(filter) > 0 {
+		q["filter"] = filter
+	}
 
-// 	if fields != "" {
-// 		q["fields"] = fields
-// 	}
+	if fields != "" {
+		q["fields"] = fields
+	}
 
-// 	if view != "" {
-// 		q["view"] = view
-// 	}
+	if view != "" {
+		q["view"] = view
+	}
 
-// 	refresh login
-// 	c.RefreshLogin()
-// 	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
-// 	Setup query
-// 	if len(q) > 0 {
-// 		c.SetQueryString(q)
-// 	}
+	refresh login
+	c.RefreshLogin()
+	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
+	Setup query
+	if len(q) > 0 {
+		c.SetQueryString(q)
+	}
+
+	encList, err := c.GetEnclosures("", "", "", "", "")
+	if err != nil {
+		fmt.Println("Enclosure URI Retrieval Failed: ", err)
+	} else {
+		for i := 0; i < len(encList.Members); i++ {
+			UUID = encList.Members[i].UUID
+			//fmt.Println(UUID)
+			URI = "/rest/enclosures/" + UUID + "/utilization"
+
+			data, err := c.RestAPICall(rest.GET, URI, nil)
+			if err != nil {
+				return utilization, err
+			}
+			log.Debugf("GetEnclosuresUtilization ", data)
+			if err := json.Unmarshal([]byte(data), &utilization); err != nil {
+				return utilization, err
+			}
+			return utilization, err
+		}
+	}
+}
 
 // 	Getting URIs to reset utilization data against
 func (c *OVClient) RefreshUtilization(uri string) (EnclosureUtilization, error) {
