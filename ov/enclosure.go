@@ -515,38 +515,59 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 
 //see rest/netutil.go line 70 - boolean is not supported, only strings here, hence below I set the refreshURI hard to ?refresh=true
 //func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
-func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
-	var (
-		q map[string]interface{}
-		//t           *Task
-		utilization EnclosureUtilization
-		refresh := true
-	)
+// func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
+// 	var (
+// 		q map[string]interface{}
+// 		t           *Task
+// 		utilization EnclosureUtilization
+// 		refresh := true
+// 	)
 
-	q = make(map[string]interface{})
-	if len(filter) > 0 {
-		q["filter"] = filter
-	}
+// 	q = make(map[string]interface{})
+// 	if len(filter) > 0 {
+// 		q["filter"] = filter
+// 	}
 
-	if fields != "" {
-		q["fields"] = fields
-	}
+// 	if fields != "" {
+// 		q["fields"] = fields
+// 	}
 
-	if view != "" {
-		q["view"] = view
-	}
+// 	if view != "" {
+// 		q["view"] = view
+// 	}
 	
 
-	// refresh login
-	c.RefreshLogin()
-	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
-	// Setup query
-	if len(q) > 0 {
-		c.SetQueryString(q)
+// 	refresh login
+// 	c.RefreshLogin()
+// 	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
+// 	Setup query
+// 	if len(q) > 0 {
+// 		c.SetQueryString(q)
+// 	}
+
+// 	Getting URIs to reset utilization data against
+	func (c *OVClient) RefreshUtilization(uri string) (EnclosureUtilization, error) {
+		var (
+			utilization EnclosureUtilization
+			refreshURI := uri + "/?refresh=true"
+			//t	*Task
+		)
+
+		fmt.Println("Using refresh URI: %s", resetURI)
+		// refresh login
+		c.RefreshLogin()
+		c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
+		
+		data, err := c.RestAPICall(rest.GET, refreshURI, nil)
+		if err != nil {
+			return utilization, err
+		}
+		log.Debugf("RefreshUtilization %s", data)
+		if err := json.Unmarshal([]byte(data), &utilization); err != nil {
+			return utilization, err
+		}
+		return utilization, nil
 	}
-
-	//Getting URIs to reset utilization data against
-
 
 	// THIS WORKED
 	encList, err := c.GetEnclosures("", "", "", "", "")
