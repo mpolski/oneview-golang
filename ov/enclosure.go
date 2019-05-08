@@ -3,6 +3,7 @@ package ov
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/HewlettPackard/oneview-golang/rest"
 	"github.com/HewlettPackard/oneview-golang/utils"
@@ -295,31 +296,25 @@ type EnclosureCreateMap struct {
 	UpdateFirmwareOn     string        `json:"updateFirmwareOn,omitempty"`
 }
 
-//EnclosureUtilization
+//EnclosureUtilization - GetEnclosureUtilization
 type EnclosureUtilization struct {
-	RefreshTaskURI   string        `json:"refreshTaskUri,omitempty"`   //"refreshTaskUri": null,
+	RefreshTaskURI   utils.Nstring `json:"refreshTaskUri,omitempty"`   //"refreshTaskUri": null,
 	URI              utils.Nstring `json:"uri,omitempty"`              //"uri": "/rest/enclosures/797740CZJ809076M"
 	Resolution       int           `json:"resolution,omitempty"`       //"resolution": 3000000,
-	SliceEndTime     string        `json:"sliceEndTime,omitempty"`     //"sliceEndTime": "2019-05-01T11:10:00.000Z",
-	SliceStartTime   string        `json:"sliceStartTime,omitempty"`   //"sliceStartTime": "2019-05-01T11:10:00.000Z",
-	NewestSampleTime string        `json:"newestSampleTime,omitempty"` //"newestSampleTime": "2019-05-01T11:10:00.000Z",
-	OldestSampleTime string        `json:"oldestSampleTime,omitempty"` //"oldestSampleTime": "2019-05-01T11:10:00.000Z",
+	SliceEndTime     time.Time     `json:"sliceEndTime,omitempty"`     //"sliceEndTime": "2019-05-01T11:10:00.000Z",
+	SliceStartTime   time.Time     `json:"sliceStartTime,omitempty"`   //"sliceStartTime": "2019-05-01T11:10:00.000Z",
+	NewestSampleTime time.Time     `json:"newestSampleTime,omitempty"` //"newestSampleTime": "2019-05-01T11:10:00.000Z",
+	OldestSampleTime time.Time     `json:"oldestSampleTime,omitempty"` //"oldestSampleTime": "2019-05-01T11:10:00.000Z",
 	IsFresh          bool          `json:"isFresh,omitempty"`          // "total": false,
 	MetricList       []MetricList  `json:"metricList,omitempty"`       // "metricList":[]
 }
 
 //MetricList - EnclosureUtilization
 type MetricList struct {
-	MetricName     string        `json:"metricName,omitempty"`     //"metricName": "PeakPower",
-	MetricSamples  []interface{} `json:"metricSamples,omitempty"`  //"metricSamples":[],
-	MetricCapacity int           `json:"metricCapacity,omitempty"` // "metricCapacity": 35
+	MetricName     string          `json:"metricName,omitempty"`     //"metricName": "PeakPower",
+	MetricSamples  [][]interface{} `json:"metricSamples,omitempty"`  //"metricSamples":[[1557345600000 911][1557345600000 935]],
+	MetricCapacity int             `json:"metricCapacity,omitempty"` // "metricCapacity": 35
 }
-
-//MetricSamples - EnclosureUtilization	json: cannot unmarshal array into Go struct field MetricList.metricSamples of type ov.MetricSamples (this isn't a struct with named fields, it's an array)
-// type MetricSamples struct {
-// 	t string
-// 	v int
-// }
 
 func (c *OVClient) GetEnclosureByName(name string) (Enclosure, error) {
 	var (
@@ -513,13 +508,10 @@ func (c *OVClient) UpdateEnclosure(op string, path string, value string, enclosu
 	return nil
 }
 
-//see rest/netutil.go line 70 - boolean is not supported, only strings here, hence below I set the refreshURI hard to ?refresh=true
-//func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh bool, view string) (EnclosureUtilization, error) {
 func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh string, view string) (EnclosureUtilization, error) {
 	var (
 		q           map[string]interface{}
 		utilization EnclosureUtilization
-		//refresh := true
 	)
 
 	q = make(map[string]interface{})
@@ -547,14 +539,16 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		c.SetQueryString(q)
 	}
 
+	//need
 	encList, err := c.GetEnclosures("", "", "", "", "")
 	if err != nil {
 		fmt.Println("Enclosure URI Retrieval Failed: ", err)
 	} else {
 		for i := 0; i < len(encList.Members); i++ {
-			UUID := encList.Members[i].UUID
-			//fmt.Println(UUID)
-			URI := "/rest/enclosures/" + UUID + "/utilization"
+			//UUID := encList.Members[i].UUID
+
+			URI := encList.Members[i].URI.String() + "/utilization"
+			//URI := "/rest/enclosures/" + UUID + "/utilization"
 
 			data, err := c.RestAPICall(rest.GET, URI, nil)
 			if err != nil {
