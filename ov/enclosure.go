@@ -310,11 +310,11 @@ type EnclosureUtilization struct {
 }
 
 //MetricList - EnclosureUtilization
-type MetricList struct {
-	MetricName     string          `json:"metricName,omitempty"`     //"metricName": "PeakPower",
-	MetricSamples  [][]interface{} `json:"metricSamples,omitempty"`  //"metricSamples":[[1557345600000 911][1557345600000 935]],
-	MetricCapacity int             `json:"metricCapacity,omitempty"` // "metricCapacity": 35
-}
+// type MetricList struct {
+// 	MetricName     string          `json:"metricName,omitempty"`     //"metricName": "PeakPower",
+// 	MetricSamples  [][]interface{} `json:"metricSamples,omitempty"`  //"metricSamples":[[1557345600000 911][1557345600000 935]],
+// 	MetricCapacity int             `json:"metricCapacity,omitempty"` // "metricCapacity": 35
+// }
 
 func (c *OVClient) GetEnclosureByName(name string) (Enclosure, error) {
 	var (
