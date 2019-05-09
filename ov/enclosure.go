@@ -512,7 +512,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 	var (
 		q           map[string]interface{}
 		utilization EnclosureUtilization
-		uURI string	
+		uURI        string
 	)
 
 	q = make(map[string]interface{})
@@ -540,7 +540,7 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		c.SetQueryString(q)
 	}
 
-	uURI = uri+"/utilization"
+	uURI = uri + "/utilization"
 	data, err := c.RestAPICall(rest.GET, uURI, nil)
 	if err != nil {
 		return utilization, err
@@ -550,6 +550,8 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 		return utilization, err
 	}
 	return utilization, err
+}
+
 // func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refresh string, view string) (EnclosureUtilization, error) {
 // 	var (
 // 		q           map[string]interface{}
@@ -629,5 +631,3 @@ func (c *OVClient) GetEnclosuresUtilization(fields string, filter string, refres
 // 	}
 // 	return utilization, nil
 // }
-
-
