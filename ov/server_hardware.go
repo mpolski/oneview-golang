@@ -21,10 +21,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strings"
+
 	"github.com/HewlettPackard/oneview-golang/rest"
 	"github.com/HewlettPackard/oneview-golang/utils"
 	"github.com/docker/machine/libmachine/log"
-	"strings"
 )
 
 // HardwareState
@@ -106,7 +107,7 @@ type ServerHardware struct {
 	Status                string        `json:"status,omitempty"`                // "status": "Warning",
 	Type                  string        `json:"type,omitempty"`                  // "type": "server-hardware-3",
 	URI                   utils.Nstring `json:"uri,omitempty"`                   // "uri": "/rest/server-hardware/30373237-3132-4D32-3235-303930524D57",
-	UUID                  utils.Nstring `json:"uuid,omitempty"`                  // "uuid": "30373237-3132-4D32-3235-303930524D57",
+	UUID                  string        `json:"uuid,omitempty"`                  // "uuid": "30373237-3132-4D32-3235-303930524D57",
 	VirtualSerialNumber   utils.Nstring `json:"VirtualSerialNumber,omitempty"`   // "virtualSerialNumber": "",
 	VirtualUUID           string        `json:"virtualUuid,omitempty"`           // "virtualUuid": "00000000-0000-0000-0000-000000000000"
 	// v1 properties
