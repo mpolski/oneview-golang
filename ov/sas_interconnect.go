@@ -21,40 +21,40 @@ type SasInterconnectList struct {
 }
 
 type SasInterconnects struct {
-	Type                      string                     `json:"type,omitempty"`                      // "type": "SasInterconnectListV3"
-	URI                       utils.Nstring              `json:"uri,omitempty"`                       // "uri": "/rest/sas-interconnects/TWT732W0CY"
-	Category                  string                     `json:"category"`                            // "category": "sas-interconnects"
-	ETag                      string                     `json:"eTag,omitempty"`                      // "eTag": "463bd328-ffc8-40ae-9603-6136fa9e6e58",
-	Created                   string                     `json:"created,omitempty"`                   // "created": "2018-08-02T15:49:59.963Z",
-	Modified                  string                     `json:"modified,omitempty"`                  // "modified": "2018-12-03T18:26:43.335Z",
-	RefreshState              string                     `json:"refreshState,omitempty"`              // "refreshState": "NotRefreshing"
-	StateReason               string                     `json:"stateReason,omitempty"`               //	"stateReason": null
+	Type                      string                   `json:"type,omitempty"`                      // "type": "SasInterconnectListV3"
+	URI                       utils.Nstring            `json:"uri,omitempty"`                       // "uri": "/rest/sas-interconnects/TWT732W0CY"
+	Category                  string                   `json:"category"`                            // "category": "sas-interconnects"
+	ETag                      string                   `json:"eTag,omitempty"`                      // "eTag": "463bd328-ffc8-40ae-9603-6136fa9e6e58",
+	Created                   string                   `json:"created,omitempty"`                   // "created": "2018-08-02T15:49:59.963Z",
+	Modified                  string                   `json:"modified,omitempty"`                  // "modified": "2018-12-03T18:26:43.335Z",
+	RefreshState              string                   `json:"refreshState,omitempty"`              // "refreshState": "NotRefreshing"
+	StateReason               string                   `json:"stateReason,omitempty"`               //	"stateReason": null
 	InterconnectLocation      SASInterconnectLocation  `json:"interconnectLocation"`                // "interconnectLocation": {}
-	PowerState                string                     `json:"powerState,omitempty"`                // "powerState": "On",
-	HardResetState            string                     `json:"hardResetState,omitempty"`            // "hardResetState": "Normal"
-	SoftResetState            string                     `json:"softResetState,omitempty"`            // "softResetState": "Normal"
-	InterconnectIP            string                     `json:"interconnectIP,omitempty"`            // "interconnectIP": "fe80::9eb6:54ff:fe91:2170"
-	FirmwareVersion           string                     `json:"firmwareVersion,omitempty"`           // "firmwareVersion": "1.5.11.0",
-	ProductName               string                     `json:"productName,omitempty"`               // "productName": "Synergy 12Gb SAS Connection Module"
-	Model                     string                     `json:"model,omitempty"`                     // "model": "Synergy 12Gb SAS Connection Module"
-	SasWWN                    string                     `json:"sasWWN,omitempty"`                    // "sasWWN": "50014380421BE900"
-	EnclosureURI              utils.Nstring              `json:"enclosureUri,omitempty"`              // "enclosureUri": "/rest/enclosures/013645CN759000AC"
-	SerialNumber              string                     `json:"serialNumber,omitempty"`              // "serialNumber": "TWT732W0CY",
-	PartNumber                string                     `json:"partNumber,omitempty"`                // "partNumber": "755985-B21",
-	SasLogicalInterconnectURI utils.Nstring              `json:"sasLogicalInterconnectUri,omitempty"` // "sasLogicalInterconnectUri": "/rest/sas-logical-interconnects/c6e17ed8-de41-4d53-aa50-2da58a0d63b8"
-	InterconnectTypeURI       utils.Nstring              `json:"interconnectTypeUri,omitempty"`       //"interconnectTypeURI": "/rest/sas-interconnect-types/Synergy12GbSASConnectionModule"
-	PortCount                 int                        `json:"portCount,omitempty"`                 // "portCount": 12,
-	EnclosureName             string                     `json:"enclosureName,omitempty"`             // "enclosureName": "CEC"
-	UIDState                  string                     `json:"uidState,omitempty"`                  // "uidState": "Off"
-	SasPorts                  []SasPorts                 `json:"sasPorts,omitempty"`                  // "sasPorts": []
-	RemoteSupportSettings     []SASRemoteSupportSettings `json:"remoteSupportSettings,omitempty"`     // "remoteSupportSettings": []
-	SparePartNumber           string                     `json:"sparePartNumber,omitempty"`           // "sparePartNumber": "758686-001"
-	ScopesURI                 string                     `json:"scopesUri,omitempty"`                 // "scopesUri": "/rest/scopes/resources/rest/sas-interconnects/TWT732W0CY",
-	LogicalSasInterconnectURI string                     `json:"logicalSasInterconnectUri,omitempty"` //"logicalSasInterconnectUri": "/rest/sas-logical-interconnects/c6e17ed8-de41-4d53-aa50-2da58a0d63b8"
-	Description               utils.Nstring              `json:"description,omitempty"`               // Description": null
-	State                     string                     `json:"state,omnitempty"`                    // "state": "Configured"
-	Status                    string                     `json:"status,omitempty"`                    // "status": "OK"
-	Name                      string                     `json:"name,omitempty"`                      // "name": "CEC, interconnect 4"
+	PowerState                string                   `json:"powerState,omitempty"`                // "powerState": "On",
+	HardResetState            string                   `json:"hardResetState,omitempty"`            // "hardResetState": "Normal"
+	SoftResetState            string                   `json:"softResetState,omitempty"`            // "softResetState": "Normal"
+	InterconnectIP            string                   `json:"interconnectIP,omitempty"`            // "interconnectIP": "fe80::9eb6:54ff:fe91:2170"
+	FirmwareVersion           string                   `json:"firmwareVersion,omitempty"`           // "firmwareVersion": "1.5.11.0",
+	ProductName               string                   `json:"productName,omitempty"`               // "productName": "Synergy 12Gb SAS Connection Module"
+	Model                     string                   `json:"model,omitempty"`                     // "model": "Synergy 12Gb SAS Connection Module"
+	SasWWN                    string                   `json:"sasWWN,omitempty"`                    // "sasWWN": "50014380421BE900"
+	EnclosureURI              utils.Nstring            `json:"enclosureUri,omitempty"`              // "enclosureUri": "/rest/enclosures/013645CN759000AC"
+	SerialNumber              string                   `json:"serialNumber,omitempty"`              // "serialNumber": "TWT732W0CY",
+	PartNumber                string                   `json:"partNumber,omitempty"`                // "partNumber": "755985-B21",
+	SasLogicalInterconnectURI utils.Nstring            `json:"sasLogicalInterconnectUri,omitempty"` // "sasLogicalInterconnectUri": "/rest/sas-logical-interconnects/c6e17ed8-de41-4d53-aa50-2da58a0d63b8"
+	InterconnectTypeURI       utils.Nstring            `json:"interconnectTypeUri,omitempty"`       //"interconnectTypeURI": "/rest/sas-interconnect-types/Synergy12GbSASConnectionModule"
+	PortCount                 int                      `json:"portCount,omitempty"`                 // "portCount": 12,
+	EnclosureName             string                   `json:"enclosureName,omitempty"`             // "enclosureName": "CEC"
+	UIDState                  string                   `json:"uidState,omitempty"`                  // "uidState": "Off"
+	SasPorts                  []SasPorts               `json:"sasPorts,omitempty"`                  // "sasPorts": []
+	RemoteSupportSettings     SASRemoteSupportSettings `json:"remoteSupportSettings,omitempty"`     // "remoteSupportSettings": {}
+	SparePartNumber           string                   `json:"sparePartNumber,omitempty"`           // "sparePartNumber": "758686-001"
+	ScopesURI                 string                   `json:"scopesUri,omitempty"`                 // "scopesUri": "/rest/scopes/resources/rest/sas-interconnects/TWT732W0CY",
+	LogicalSasInterconnectURI string                   `json:"logicalSasInterconnectUri,omitempty"` //"logicalSasInterconnectUri": "/rest/sas-logical-interconnects/c6e17ed8-de41-4d53-aa50-2da58a0d63b8"
+	Description               utils.Nstring            `json:"description,omitempty"`               // Description": null
+	State                     string                   `json:"state,omnitempty"`                    // "state": "Configured"
+	Status                    string                   `json:"status,omitempty"`                    // "status": "OK"
+	Name                      string                   `json:"name,omitempty"`                      // "name": "CEC, interconnect 4"
 }
 
 type SASInterconnectLocation struct {
