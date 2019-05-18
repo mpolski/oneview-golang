@@ -3,6 +3,7 @@ package ov
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/HewlettPackard/oneview-golang/rest"
 	"github.com/HewlettPackard/oneview-golang/utils"
 	"github.com/docker/machine/libmachine/log"
@@ -192,6 +193,7 @@ type InterconnectList struct {
 	Total       int            `json:"total,omitempty"`       // "total": 1,
 	Count       int            `json:"count,omitempty"`       // "count": 1,
 	Start       int            `json:"start,omitempty"`       // "start": 0,
+	Category    string         `json:"category,omitempty"`    // "category": "interconnects"
 	PrevPageURI utils.Nstring  `json:"prevPageUri,omitempty"` // "prevPageUri": null,
 	NextPageURI utils.Nstring  `json:"nextPageUri,omitempty"` // "nextPageUri": null,
 	URI         utils.Nstring  `json:"uri,omitempty"`         // "uri": "/rest/interconnects?start=2&count=2",
