@@ -98,7 +98,7 @@ type SASRemoteSupportSettings struct {
 	SupportState               string `json:"supportState,omitempty"`               // "supportState": "Disabled"
 }
 
-func (c *OVClient) GetSasInterconnects(count string, filters []string, query string, sort string, start string) (SasInterconnectList, error) {
+func (c *OVClient) GetSasInterconnects(count string, filter []string, query string, sort string, start string) (SasInterconnectList, error) {
 	var (
 		uri              = "/rest/sas-interconnects"
 		q                map[string]interface{}
