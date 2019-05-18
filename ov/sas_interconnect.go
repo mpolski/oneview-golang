@@ -29,7 +29,7 @@ type SasInterconnects struct {
 	Modified                  string                     `json:"modified,omitempty"`                  // "modified": "2018-12-03T18:26:43.335Z",
 	RefreshState              string                     `json:"refreshState,omitempty"`              // "refreshState": "NotRefreshing"
 	StateReason               string                     `json:"stateReason,omitempty"`               //	"stateReason": null
-	InterconnectLocation      []SASInterconnectLocation  `json:"interconnectLocation"`                // "interconnectLocation": []
+	SASInterconnectLocation   []SASInterconnectLocation  `json:"interconnectLocation"`                // "interconnectLocation": []
 	PowerState                string                     `json:"powerState,omitempty"`                // "powerState": "On",
 	HardResetState            string                     `json:"hardResetState,omitempty"`            // "hardResetState": "Normal"
 	SoftResetState            string                     `json:"softResetState,omitempty"`            // "softResetState": "Normal"
@@ -58,12 +58,12 @@ type SasInterconnects struct {
 }
 
 type SASInterconnectLocation struct {
-	LocationEntries []SASLocationEntries `json:"locationEntries"` // "locationEntries": []
+	SASLocationEntries []SASLocationEntries `json:"locationEntries"` // "locationEntries": []
 }
 
 type SASLocationEntries struct {
-	Type  string `json:"type,omitemtpy"`  // "type": "bay"
-	Value string `json:"value,omitempty"` // "value": "4"
+	Type  string `json:"type"`  // "type": "bay"
+	Value string `json:"value"` // "value": "4"
 }
 
 type SasPorts struct {
