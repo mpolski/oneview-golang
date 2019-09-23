@@ -227,9 +227,18 @@ type Data struct {
 type CacheModuleStatus struct {
 	Health string `json:"Health"`
 }
+// ControllerBoard struct from LocalStorage
+type ControllerBoard struct {
+	Status Status `json:"Status"`
+}
 // FirmwareVersion struct from LocalStorage
 type FirmwareVersion struct {
 	Current Current `json:"Current"`
+}
+
+// Current struct from FirmwareVersion struct
+type Current struct {
+	VersionString string `json:"VersionString"`
 }
 // LogicalDrives Map from LocalStorage
 type LogicalDrives struct {
