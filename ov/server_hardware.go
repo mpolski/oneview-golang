@@ -180,6 +180,132 @@ type Component struct {
 	ComponentVersion  string `json:"componentVersion,omitempty"`  // "componentVersion": "1.0"
 }
 
+// LocalStorage get server localStorage from ov
+type LocalStorage struct {
+	CollectionState string    `json:"collectionState"`	// "collectionState": "Collected",
+	Count           int       `json:"count"`	// "count": 2,
+	Data            []Data    `json:"data"`	// "data": [],
+	ETAG              string        `json:"eTag,omitempty"`              // "eTag": null,
+	Modified        time.Time `json:"modified"`	// "modified": "2019-08-30T17:03:37.852Z",
+	Name            string    `json:"name"`	// "name": "LocalStorage",
+	URI               utils.Nstring `json:"uri,omitempty"`               // "uri": "/rest/server-hardware/31393736-3831-4753-4831-30305837524E/localStorage"
+}
+
+// Data LocalStorage Map from LocalStorage
+type Data struct {
+	AdapterType                                   string              `json:"AdapterType"`
+	BackupPowerSourceStatus                       string              `json:"BackupPowerSourceStatus"`
+	CacheMemorySizeMiB                            int                 `json:"CacheMemorySizeMiB"`
+	CacheModuleSerialNumber                       string              `json:"CacheModuleSerialNumber"`
+	CacheModuleStatus                             CacheModuleStatus   `json:"CacheModuleStatus"`
+	ControllerBoard                               ControllerBoard     `json:"ControllerBoard"`
+	CurrentOperatingMode                          string              `json:"CurrentOperatingMode"`
+	DriveWriteCache                               string              `json:"DriveWriteCache"`
+	EncryptionCryptoOfficerPasswordSet            bool                `json:"EncryptionCryptoOfficerPasswordSet"`
+	EncryptionCspTestPassed                       bool                `json:"EncryptionCspTestPassed"`
+	EncryptionEnabled                             bool                `json:"EncryptionEnabled"`
+	EncryptionFwLocked                            bool                `json:"EncryptionFwLocked"`
+	EncryptionHasLockedVolumesMissingBootPassword bool                `json:"EncryptionHasLockedVolumesMissingBootPassword"`
+	EncryptionMixedVolumesEnabled                 bool                `json:"EncryptionMixedVolumesEnabled"`
+	EncryptionSelfTestPassed                      bool                `json:"EncryptionSelfTestPassed"`
+	EncryptionStandaloneModeEnabled               bool                `json:"EncryptionStandaloneModeEnabled"`
+	ExternalPortCount                             int                 `json:"ExternalPortCount"`
+	FirmwareVersion                               FirmwareVersion     `json:"FirmwareVersion"`
+	InternalPortCount                             int                 `json:"InternalPortCount"`
+	Location                                      string              `json:"Location"`
+	LocationFormat                                string              `json:"LocationFormat"`
+	LogicalDrives                                 []LogicalDrives     `json:"LogicalDrives"`
+	Model                                         string              `json:"Model"`
+	Name                                          string              `json:"Name"`
+	PhysicalDrives                                []PhysicalDrives    `json:"PhysicalDrives"`
+	SerialNumber                                  string              `json:"SerialNumber"`
+	Status                                        Status              `json:"Status"`
+	StorageEnclosures                             []StorageEnclosures `json:"StorageEnclosures"`
+}
+
+// CacheModuleStatus struct from LocalStorage
+type CacheModuleStatus struct {
+	Health string `json:"Health"`
+}
+// FirmwareVersion struct from LocalStorage
+type FirmwareVersion struct {
+	Current Current `json:"Current"`
+}
+// LogicalDrives Map from LocalStorage
+type LogicalDrives struct {
+	AccelerationMethod        string       `json:"AccelerationMethod"`
+	CapacityMiB               int          `json:"CapacityMiB"`
+	DataDrives                []DataDrives `json:"DataDrives"`
+	InterfaceType             string       `json:"InterfaceType"`
+	LegacyBootPriority        string       `json:"LegacyBootPriority"`
+	LogicalDriveEncryption    bool         `json:"LogicalDriveEncryption"`
+	LogicalDriveName          string       `json:"LogicalDriveName"`
+	LogicalDriveNumber        int          `json:"LogicalDriveNumber"`
+	LogicalDriveStatusReasons []string     `json:"LogicalDriveStatusReasons"`
+	LogicalDriveType          string       `json:"LogicalDriveType"`
+	MediaType                 string       `json:"MediaType"`
+	Raid                      string       `json:"Raid"`
+	Status                    Status       `json:"Status"`
+	StripeSizeBytes           int          `json:"StripeSizeBytes"`
+	VolumeUniqueIdentifier    string       `json:"VolumeUniqueIdentifier"`
+}
+
+// DataDrives Map from LogicalDrives
+type DataDrives struct {
+	BlockSizeBytes         int             `json:"BlockSizeBytes"`
+	CapacityLogicalBlocks  int             `json:"CapacityLogicalBlocks"`
+	CapacityMiB            int             `json:"CapacityMiB"`
+	DiskDriveStatusReasons []string        `json:"DiskDriveStatusReasons"`
+	DiskDriveUse           string          `json:"DiskDriveUse"`
+	EncryptedDrive         bool            `json:"EncryptedDrive"`
+	FirmwareVersion        FirmwareVersion `json:"FirmwareVersion"`
+	InterfaceSpeedMbps     int             `json:"InterfaceSpeedMbps"`
+	InterfaceType          string          `json:"InterfaceType"`
+	LegacyBootPriority     string          `json:"LegacyBootPriority"`
+	Location               string          `json:"Location"`
+	LocationFormat         string          `json:"LocationFormat"`
+	MediaType              string          `json:"MediaType"`
+	Model                  string          `json:"Model"`
+	SerialNumber           string          `json:"SerialNumber"`
+	Status                 Status          `json:"Status"`
+}
+
+// PhysicalDrives Map from LocalStorage
+type PhysicalDrives struct {
+	BlockSizeBytes         int             `json:"BlockSizeBytes"`
+	CapacityLogicalBlocks  int             `json:"CapacityLogicalBlocks"`
+	CapacityMiB            int             `json:"CapacityMiB"`
+	DiskDriveStatusReasons []string        `json:"DiskDriveStatusReasons"`
+	DiskDriveUse           string          `json:"DiskDriveUse"`
+	EncryptedDrive         bool            `json:"EncryptedDrive"`
+	FirmwareVersion        FirmwareVersion `json:"FirmwareVersion"`
+	InterfaceSpeedMbps     int             `json:"InterfaceSpeedMbps"`
+	InterfaceType          string          `json:"InterfaceType"`
+	LegacyBootPriority     string          `json:"LegacyBootPriority"`
+	Location               string          `json:"Location"`
+	LocationFormat         string          `json:"LocationFormat"`
+	MediaType              string          `json:"MediaType"`
+	Model                  string          `json:"Model"`
+	SerialNumber           string          `json:"SerialNumber"`
+	Status                 Status          `json:"Status"`
+}
+
+// Status struct from LocalStorage
+type Status struct {
+	Health string `json:"Health"`
+	State  string `json:"State"`
+}
+
+// StorageEnclosures Map from LocalStorage
+type StorageEnclosures struct {
+	DriveBayCount   int             `json:"DriveBayCount"`
+	FirmwareVersion FirmwareVersion `json:"FirmwareVersion"`
+	ID              string          `json:"Id"`
+	Location        string          `json:"Location"`
+	LocationFormat  string          `json:"LocationFormat"`
+	Status          Status          `json:"Status"`
+}
+
 // server hardware power off
 func (s ServerHardware) PowerOff() error {
 	var pt *PowerTask
@@ -334,4 +460,32 @@ func (c *OVClient) GetServerFirmwareByUri(uri utils.Nstring) (ServerFirmware, er
 		return firmware, err
 	}
 	return firmware, nil
+}
+
+// GetServerLocalStorageByUri gets local storage configuration for a server hardware with uri
+func (c *OVClient) GetServerLocalStorageByUri(uri utils.Nstring) (LocalStorage, error) {
+
+	var (
+		storage LocalStorage
+		main_uri = uri.String()
+	)
+
+	// refresh login
+	c.RefreshLogin()
+	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
+
+	// Get local storage
+	main_uri = main_uri + "/localStorage"
+
+	// rest call
+	data, err := c.RestAPICall(rest.GET, main_uri, nil)
+	if err != nil {
+		return storage, err
+	}
+
+	log.Debugf("GetServerHardware %s", data)
+	if err := json.Unmarshal([]byte(data), &storage); err != nil {
+		return storage, err
+	}
+	return storage, nil
 }
