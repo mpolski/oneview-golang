@@ -456,7 +456,7 @@ func (c *OVClient) GetServerFirmwareByUri(uri utils.Nstring) (ServerFirmware, er
 	c.SetAuthHeaderOptions(c.GetAuthHeaderMap())
 
 	// Get firmware
-	localStorageURI = main_uri + "/firmware"
+	localStorageURI := main_uri + "/firmware"
 
 	// rest call
 	data, err := c.RestAPICall(rest.GET, localStorageURI, nil)
