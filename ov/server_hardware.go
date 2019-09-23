@@ -185,10 +185,10 @@ type LocalStorage struct {
 	CollectionState string    `json:"collectionState"`	// "collectionState": "Collected",
 	Count           int       `json:"count"`	// "count": 2,
 	Data            []Data    `json:"data"`	// "data": [],
-	ETAG              string        `json:"eTag,omitempty"`              // "eTag": null,
-	Modified        time.Time `json:"modified"`	// "modified": "2019-08-30T17:03:37.852Z",
+	ETAG            string        `json:"eTag,omitempty"`              // "eTag": null,
+	Modified        string `json:"modified"`	// "modified": "2019-08-30T17:03:37.852Z",
 	Name            string    `json:"name"`	// "name": "LocalStorage",
-	URI               utils.Nstring `json:"uri,omitempty"`               // "uri": "/rest/server-hardware/31393736-3831-4753-4831-30305837524E/localStorage"
+	URI             utils.Nstring `json:"uri,omitempty"`               // "uri": "/rest/server-hardware/31393736-3831-4753-4831-30305837524E/localStorage"
 }
 
 // Data LocalStorage Map from LocalStorage
